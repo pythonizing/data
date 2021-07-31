@@ -1,0 +1,49 @@
+
+<!-- saved from url=(0087)http://web.archive.org/web/20160127041251/http://www.century21.com/js/iframe.proxy.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" src="./analytics.js"></script>
+<script type="text/javascript">archive_analytics.values.server_name="wwwb-app10.us.archive.org";archive_analytics.values.server_ms=279;</script>
+<link type="text/css" rel="stylesheet" href="./banner-styles.css">
+
+<script language="JavaScript" src="./jquery-1.7.1.js"></script>
+<script>
+// Ex: c21.com
+document.domain = location.hostname.split('.').slice(-2).join('.');
+
+parent.proxyAjax = function(o) {
+   // TODO: Find method to use parent frame's jQuery include 
+   //var jQueryHere = parent.$.sub();
+
+   $.ajax({
+      url : o.url,
+      data: o.data,
+      success : function(response, textStatus, XMLHttpRequest) {
+         if (!o.callback) return;
+
+         // This is insane, but required
+         // document.location will apparently default to the iframe's domain
+         // for relative locations... which is bad because the user is
+         // never supposed to be on the personal domain (ex: my.century21.com)
+         parent.portalAjax.callThisFrame(function() {
+            o.callback.call(o.context, response, textStatus, XMLHttpRequest);
+         });
+      },
+      context: o.context,
+      cache: o.cache ? true : false,
+      type: o.requestType
+   });
+}
+</script>
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 4:12:51 Jan 27, 2016 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 21:30:06 Aug 11, 2016.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+</head><body></body></html>
